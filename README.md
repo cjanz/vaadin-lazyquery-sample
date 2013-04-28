@@ -22,9 +22,9 @@ Main features
 * Using JPA for fetching the entities
 * Using [QueryDSL](http://www.querydsl.com/) for construction of the queries
 * Compile-safe binding of properties with generated QueryDSL classes
-** Sorting
-** Filtering
-** Specifying visible columns
+  * Sorting
+  * Filtering
+  * Specifying visible columns
 * Forms
 * Bean Validation
 * Navigation
