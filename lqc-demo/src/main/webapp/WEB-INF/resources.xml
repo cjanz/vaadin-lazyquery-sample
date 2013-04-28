@@ -1,0 +1,9 @@
+<resources>
+	<Resource id="vaadin_ds" type="javax.sql.DataSource">
+		JdbcDriver org.hsqldb.jdbcDriver
+		JdbcUrl jdbc:hsqldb:mem:vaadin
+		UserName sa
+		Password
+		JtaManaged true
+	</Resource>
+</resources>
