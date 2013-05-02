@@ -13,6 +13,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.RichTextArea;
 
 import de.cjanz.vaadin.lqc_demo.backend.domain.TaskEntity;
@@ -57,6 +58,17 @@ public class TaskFormView extends CustomComponent implements View {
 		contentField.setNullRepresentation("");
 		contentField.setNullSettingAllowed(true);
 		formLayout.addComponent(contentField);
+
+		OptionGroup booleanRadioButtons = new OptionGroup("Done");
+		booleanRadioButtons.addStyleName("horizontal");
+		booleanRadioButtons.addItem(Boolean.TRUE);
+		booleanRadioButtons.setItemCaption(Boolean.TRUE, "Yes");
+		booleanRadioButtons.addItem(Boolean.FALSE);
+		booleanRadioButtons.setItemCaption(Boolean.FALSE, "No");
+		booleanRadioButtons.setValue(Boolean.TRUE);
+		formLayout.addComponent(booleanRadioButtons);
+		fieldGroup.bind(booleanRadioButtons, taskEntity.done.getMetadata()
+				.getName());
 	}
 
 	private void createButtonPanel(final TaskFormPresenter presenter,

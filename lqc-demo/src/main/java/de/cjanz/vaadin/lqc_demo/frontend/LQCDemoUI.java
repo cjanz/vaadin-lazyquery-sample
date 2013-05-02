@@ -18,7 +18,7 @@ import com.vaadin.ui.themes.Reindeer;
 /**
  * The Application's "main" class
  */
-@Theme(Reindeer.THEME_NAME)
+@Theme("lqcdemo")
 @Widgetset("de.cjanz.vaadin.lqc_demo.frontend.AppWidgetSet")
 @Title("Lazy Query Container Demo")
 @CDIUI

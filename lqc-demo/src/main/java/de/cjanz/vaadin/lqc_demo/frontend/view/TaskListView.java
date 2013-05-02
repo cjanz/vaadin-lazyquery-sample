@@ -13,6 +13,7 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
@@ -106,26 +107,50 @@ public class TaskListView extends CustomComponent implements View {
 
 		if (table.getVisibleColumns().length == 0) {
 			table.setContainerDataSource(presenter.getTasksContainer());
-			table.addGeneratedColumn(taskEntity.content,
-					new Table.ColumnGenerator() {
-
-						@Override
-						public Object generateCell(Table source, Object itemId,
-								Object columnId) {
-							Label contentLabel = new Label();
-							String text = (String) source.getItem(itemId)
-									.getItemProperty(columnId).getValue();
-							contentLabel.setContentMode(ContentMode.HTML);
-							contentLabel.setValue(text);
-							return contentLabel;
-						}
-					});
+			addContentCellGenerator();
+			addDoneCellGenerator();
 			table.setVisibleColumns(new Object[] { taskEntity.id,
-					taskEntity.title, taskEntity.priority, taskEntity.content });
+					taskEntity.title, taskEntity.priority, taskEntity.done,
+					taskEntity.content });
 			table.setSortContainerPropertyId(taskEntity.title);
 		} else {
 			presenter.startSearch();
 		}
+
+		table.focus();
+	}
+
+	private void addDoneCellGenerator() {
+		table.addGeneratedColumn(taskEntity.done, new Table.ColumnGenerator() {
+
+			@Override
+			public Object generateCell(Table source, Object itemId,
+					Object columnId) {
+				CheckBox checkBox = new CheckBox();
+				checkBox.setWidth("19px");
+				checkBox.setEnabled(false);
+				checkBox.setValue((Boolean) source.getItem(itemId)
+						.getItemProperty(columnId).getValue());
+				return checkBox;
+			}
+		});
+	}
+
+	private void addContentCellGenerator() {
+		table.addGeneratedColumn(taskEntity.content,
+				new Table.ColumnGenerator() {
+
+					@Override
+					public Object generateCell(Table source, Object itemId,
+							Object columnId) {
+						Label contentLabel = new Label();
+						String text = (String) source.getItem(itemId)
+								.getItemProperty(columnId).getValue();
+						contentLabel.setContentMode(ContentMode.HTML);
+						contentLabel.setValue(text);
+						return contentLabel;
+					}
+				});
 	}
 
 }

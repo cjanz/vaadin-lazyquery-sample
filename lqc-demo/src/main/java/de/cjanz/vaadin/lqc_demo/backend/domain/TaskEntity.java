@@ -33,6 +33,9 @@ public class TaskEntity {
 
 	private String content;
 
+	@Column(nullable = false)
+	private boolean done;
+
 	public Long getId() {
 		return id;
 	}
@@ -71,6 +74,14 @@ public class TaskEntity {
 
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
 	}
 
 }

@@ -41,6 +41,7 @@ public class TaskListPresenter {
 		this.container.addContainerProperty(taskEntity.id);
 		this.container.addContainerProperty(taskEntity.title);
 		this.container.addContainerProperty(taskEntity.priority);
+		this.container.addContainerProperty(taskEntity.done);
 		this.container.addContainerProperty(taskEntity.content);
 	}
 
