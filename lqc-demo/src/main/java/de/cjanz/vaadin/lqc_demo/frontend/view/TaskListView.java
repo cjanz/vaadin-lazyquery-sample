@@ -8,6 +8,7 @@ import com.vaadin.cdi.CDIView;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ShortcutAction.KeyCode;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -88,6 +89,14 @@ public class TaskListView extends CustomComponent implements View {
 		table.setImmediate(true);
 		table.setNullSelectionAllowed(false);
 		table.setSizeFull();
+		table.addShortcutListener(new ShortcutListener("Open", KeyCode.ENTER,
+				null) {
+
+			@Override
+			public void handleAction(Object sender, Object target) {
+				presenter.openTask(table.getValue());
+			}
+		});
 		layout.addComponent(table);
 		layout.setExpandRatio(table, 1f);
 
