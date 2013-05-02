@@ -17,6 +17,7 @@ import com.vaadin.ui.RichTextArea;
 
 import de.cjanz.vaadin.lqc_demo.backend.domain.TaskEntity;
 import de.cjanz.vaadin.lqc_demo.frontend.presenter.TaskFormPresenter;
+import de.cjanz.vaadin.lqc_demo.frontend.view.field.TextFieldWithNote;
 
 @CDIView(value = TaskFormView.VIEW_NAME, supportsParameters = true)
 public class TaskFormView extends CustomComponent implements View {
@@ -43,8 +44,12 @@ public class TaskFormView extends CustomComponent implements View {
 	}
 
 	private void createFields(FormLayout formLayout) {
-		formLayout.addComponent(fieldGroup.buildAndBind("Title",
-				taskEntity.title.getMetadata().getName()));
+		TextFieldWithNote nameField = new TextFieldWithNote("Title",
+				"The descriptive text of the task");
+		nameField.setRequired(true);
+		formLayout.addComponent(nameField);
+		fieldGroup.bind(nameField, taskEntity.title.getMetadata().getName());
+
 		formLayout.addComponent(fieldGroup.buildAndBind("Priority",
 				taskEntity.priority.getMetadata().getName()));
 		RichTextArea contentField = fieldGroup.buildAndBind("Content",
