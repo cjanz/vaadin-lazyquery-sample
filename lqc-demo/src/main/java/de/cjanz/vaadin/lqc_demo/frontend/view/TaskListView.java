@@ -19,6 +19,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -84,21 +85,22 @@ public class TaskListView extends CustomComponent implements View {
 
 	private void createTable(final TaskListPresenter presenter,
 			VerticalLayout layout) {
+
 		table = new Table();
 		table.setSelectable(true);
 		table.setImmediate(true);
 		table.setNullSelectionAllowed(false);
 		table.setSizeFull();
-		table.addShortcutListener(new ShortcutListener("Open", KeyCode.ENTER,
+
+		ShortcutListener openSelectionListener = new ShortcutListener("Open",
+				KeyCode.ENTER,
 				null) {
 
 			@Override
 			public void handleAction(Object sender, Object target) {
 				presenter.openTask(table.getValue());
 			}
-		});
-		layout.addComponent(table);
-		layout.setExpandRatio(table, 1f);
+		};
 
 		table.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 
@@ -109,6 +111,14 @@ public class TaskListView extends CustomComponent implements View {
 				}
 			}
 		});
+
+		Panel panel = new Panel();
+		panel.setSizeFull();
+		panel.setContent(table);
+		panel.addShortcutListener(openSelectionListener);
+
+		layout.addComponent(panel);
+		layout.setExpandRatio(panel, 1f);
 	}
 
 	@Override
